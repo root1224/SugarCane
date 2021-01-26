@@ -7,16 +7,11 @@
 {% include "detections/_modal.html" %}
 
     <!-- Header -->
-    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
-      <div class="container-fluid">
-        <div class="header-body">
-          <!-- Card stats -->
-          {% include "detections/cards-status.html" %}
-        </div>
-      </div>
+    <div class="header pb-8 pt-5 pt-lg-15 d-flex align-items-center"
+         style="min-height: 1070px; background-image: url(/static/assets/img/theme/body-detail.jpg); background-size: cover; background-position: center top;">
     </div>
 
-    <div class="container-fluid mt--7">
+    <div class="container-fluid mt--18">
       <!-- Detectecion Image-->
       <div class="row">
         <div class="col-xl-8 mb-5 mb-xl-0">
@@ -40,11 +35,11 @@
                           <h6 class="text-overflow m-0">Select type!</h6>
                         </div>
                         <a class="dropdown-item " id="rgb-tab" data-toggle="tab" href="#rgb" role="tab" aria-controls="rgb" ><i class="ni ni-image"></i>RGB</a>
-                        <a class="dropdown-item" href="#"><i class="ni ni-map-big"></i>Without ground</a>
+                        <a class="dropdown-item" href="#"><i class="ni ni-ungroup"></i>Without ground</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" id="ndvi-tab" data-toggle="tab" href="#ndvi" role="tab" aria-controls="ndvi" ><i class="ni ni-diamond"></i>NDVI</a>
                         <a class="dropdown-item" id="savi-tab" data-toggle="tab" href="#savi" role="tab" aria-controls="savi" ><i class="ni ni-umbrella-13"></i>SAVI</a>
-                        <a class="dropdown-item" id="evi2-tab" data-toggle="tab" href="#evi2" role="tab" aria-controls="evi2" ><i class="ni ni-worlds"></i>EVI2</a>
+                        <a class="dropdown-item" id="evi2-tab" data-toggle="tab" href="#evi2" role="tab" aria-controls="evi2" ><i class="ni ni-map-big"></i>EVI2</a>
                       </div>
                     </li>
                   </ul>
