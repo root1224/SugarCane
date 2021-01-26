@@ -1,6 +1,23 @@
 {% load static %}
+<div class="card-header bg-transparent border-0">
+  <div class="row">
+    <h3 class="text-white mb-0">Detections</h3>
+    <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+      <div class="form-group mb-0">
+        <div class="input-group input-group-alternative">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+          </div>
+          <input class="form-control" id="myInput" placeholder="Search detection..." onkeyup="myFunction()" type="text">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
 <div class="table-responsive">
-  <table class="table align-items-center table-dark table-flush">
+  <table id="detectionsTable" class="table align-items-center table-dark table-flush">
     <thead class="thead-dark">
       <tr>
         <th scope="col">Name</th>
@@ -13,9 +30,9 @@
     </thead>
     <tbody>
       {% for detection in detections %}
-        <tr>
+        <tr id="myTR">
           <!-- Name -->
-          <th scope="row">
+          <th scope="row" value="{{detection.name}}">
             <div class="media align-items-center">
               <div class="media-body">
                 <a href="{% url "detections:detection_detail" detection.name %}">
@@ -81,3 +98,27 @@
     </tbody>
   </table>
 </div>
+
+
+{% block javascripts %}
+<script>
+  function myFunction() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("detectionsTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("th")[0];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+</script>
+{% endblock javascripts %}
