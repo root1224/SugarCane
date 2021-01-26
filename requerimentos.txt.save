@@ -1,6 +1,0 @@
-Django
-pillow
-matplotlib
-# MyApps
-from azucar.app import CalculateVi, MakeCloustering
-from azucar.SaveFiles import SaveFile,SaveDetection
