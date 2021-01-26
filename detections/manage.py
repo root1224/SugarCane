@@ -99,10 +99,28 @@ def ManageNewDetection(self, request, *args, **kwargs):
         profile = request.user.profile
         detection_name = request.POST["name"]
         status = request.POST["satatus_of_field"]
-        note_name = request.POST['note_name']
-        note_text = request.POST['note_text']
-
-        SaveDetection(request,user,profile,detection_name,status,note_name,note_text)
+        if request.POST['note_name'] and request.POST['note_text']:
+            note_name = request.POST['note_name']
+            note_text = request.POST['note_text']
+            SaveDetection(
+                request=request,
+                user=user,
+                profile=profile,
+                detection_name=detection_name,
+                status=status,
+                note_name=note_name,
+                note_text=note_text
+            )
+        else:
+            SaveDetection(
+                request=request,
+                user=user,
+                profile=profile,
+                detection_name=detection_name,
+                status=status,
+                note_name=None,
+                note_text=None
+            )
         return redirect('detections:last_detection')
 
     return render(request, self.template_name)

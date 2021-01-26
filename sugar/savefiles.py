@@ -100,12 +100,13 @@ def SaveDetection(request,user,profile,detection_name,status,note_name,note_text
     detection_instance.picture_evi2.save(picture_evi2_name, picture_files[3])
     detection_instance.save()
 
-    note_instance = Note(
-        note_detection=detection_instance,
-        name=note_name,
-        user=user,
-        text=note_text,
-    )
-    note_instance.save()
+    if note_name:
+        note_instance = Note(
+            note_detection=detection_instance,
+            name=note_name,
+            user=user,
+            text=note_text,
+        )
+        note_instance.save()
 
     return True
