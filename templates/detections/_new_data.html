@@ -1,0 +1,132 @@
+<div class="card-header bg-white border-0">
+  <div class="row align-items-center">
+    <div class="col-4">
+      <h3 class="mb-0">New detection</h3>
+    </div>
+    <div class="col-3">
+      {% if msg %}
+        <label for="Message Error" style="color:red">{{msg}}</label>
+      {% endif %}
+    </div>
+    <div class="col-2 text-right">
+      {% if save_detect %}
+        <button disabled type="submin" class="btn btn-sm btn-primary btn-block ">Detection</button>
+      {% else %}
+        <button type="submit" name="detect" class="btn btn-sm btn-primary btn-block ">Detection</button>
+      {% endif %}
+    </div>
+    <div class="col-3 text-right">
+      {% if save_detect %}
+        <button type="submit" name="save" class="btn btn-sm btn-primary btn-block ">Save detection</button>
+      {% else %}
+        <button disabled class="btn btn-sm btn-primary btn-block ">Save detection</button>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<div class="card-body">
+  <h6 class="heading-small text-muted mb-4">Information</h6>
+  <div class="pl-lg-4">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label class="form-control-label" for="input-username">Username</label>
+          <input disabled
+          type="text"
+          class="form-control form-control-alternative"
+          placeholder="{{ request.user.username }}"
+          >
+          <input type="hidden" name="user" value="{{ user.pk}}" />
+          <input type="hidden" name="profile" value="{{ profile.pk }}" />
+
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group">
+          {% if save_detect %}
+            <label class="form-control-label" for="input-name">Detection name</label>
+            <input
+            type="text"
+            class="form-control form-control-alternative"
+            name="name"
+            placeholder="Name"
+            >
+          {% else %}
+            <div class="col">
+              <label class="form-control-label" for="input-files">Files</label>
+            </div>
+            <div class="col">
+              <input type="file" id="files" name="files" multiple><br>Select RGB,NIR,RED</br>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="row ">
+      <div class="col-lg-6 ">
+        <div class="form-group">
+          <label class="form-control-label" for="input-status-field">Status of Field</label>
+          <input disabled
+          type="text"
+          class="form-control form-control-alternative"
+          placeholder="{%if state %}{{state}}{%else%}None{%endif%}"
+          value="{{state}}"
+          >
+          <input type="hidden" name="satatus_of_field" value="{{state}}">
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label class="form-control-label" for="input-created">Created</label>
+          <input disabled
+          class="form-control form-control-alternative"
+          placeholder="{% now "SHORT_DATETIME_FORMAT" %}"
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% if save_detect %}
+    <hr class="my-4" />
+    <!-- Description -->
+    <div class="row align-items-center">
+      <button type="button" class="accordion text-muted mb-4">Note</button>
+      <div class="panel">
+        <div class="pl-lg-4">
+          <div class="form-group">
+            <div class="form-group">
+              <label for="recipient-name" class="form-control-label">Author:</label>
+              <input disabled type="text" class="form-control" id="recipient-name" placeholder="{{request.user.username}}">
+            </div>
+            <div class="form-group">
+              <label for="name-text" class="form-control-label">Note Name:</label>
+              <input type="text" class="form-control" id="note_name" name="note_name" placeholder="Note Name">
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="form-control-label">Note Text:</label>
+              <textarea class="form-control" id="note_text" name="note_text" placeholder="Write your note here."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<script type="text/javascript">
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+
+  for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
+  });
+  }
+</script>

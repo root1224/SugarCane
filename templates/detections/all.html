@@ -1,0 +1,48 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Tables {% endblock title %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+      <div class="container-fluid">
+        <div class="header-body">
+          <!-- Card stats -->
+          {% include "detections/cards-status.html" %}
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid mt--7">
+
+      <!-- Dark table -->
+      <div class="row mt-5">
+        <div class="col">
+          <div class="card bg-default shadow">
+            <div class="card-header bg-transparent border-0">
+              <h3 class="text-white mb-0">Detections</h3>
+            </div>
+
+              <!-- Table all detections -->
+              {% include "detections/tables/all.html" %}
+
+            <div class="card-footer py-4 bg-default shadow">
+              <nav aria-label="...">
+                {% if page_obj.has_other_pages %}
+                  {% include "includes/pagination.html" %}
+                {% endif%}
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% include "includes/footer.html" %}
+
+    </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

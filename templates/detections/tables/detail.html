@@ -1,0 +1,69 @@
+{% include "detections/_modal.html" %}
+<tr>
+  <td>{{note.name}}</td>
+  <td>{{note.user}}</td>
+  <td>{{note.text}}</td>
+  <td>{{note.created}}</td>
+  <td>
+    <form method="POST">
+      {% csrf_token %}
+
+      <!-- Read note buttons -->
+      <button
+        title="View note"
+        type="button"
+        class="btn btn-sm btn-primary"
+        onclick="modal_note('{% url 'detections:read_note' note.pk %}')">
+      <span class="fa fa-eye"></span>
+      </button>
+
+      {% if note.user == request.user %}
+      <!-- Update note buttons -->
+        <button
+          title="Edit note"
+          type="button"
+          class="btn btn-sm btn-primary"
+          onclick="modal_note('{% url 'detections:edit_note' note.pk %}')">
+          <span class="fa fa-edit"></span>
+        </button>
+
+        <!-- Delete note buttons -->
+        <button
+          title="Delete note"
+          type="button"
+          class="btn btn-sm btn-danger"
+          onclick="modal_note('{%url 'detections:delete_note' note.pk%}')">
+          <span class="fa fa-trash"></span>
+        </button>
+
+      {% else %}
+      <!-- Update note buttons -->
+        <button disabled type="button" class="btn btn-sm btn-primary" >
+          <span class="fa fa-edit"></span>
+        </button>
+
+        <!-- Delete note buttons -->
+        <button disabled
+          data-toggle="tooltip"
+          class="bs-modal btn btn-sm btn-danger">
+          <span class="fa fa-trash"></span>
+        </button>
+
+      {% endif %}
+    </form>
+  </td>
+</tr>
+
+<div class="modal fade" id="notedetail" role="dialog">
+
+</div>
+
+<script type="text/javascript">
+  var $ = jQuery.noConflict()
+  function modal_note(url){
+    $('#notedetail').load(url, function(){
+      $(this).modal('show')
+    });
+  }
+
+</script>

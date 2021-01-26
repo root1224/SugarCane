@@ -1,0 +1,23 @@
+<form method="POST" action="{% url 'detections:delete_note' note.pk %}">
+  {% csrf_token %}
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Delete Note</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <input type="hidden" name="note_pk" value="{{note.pk}}">
+      <div class="modal-body">
+        <p>Are you sure you want to delete note with name
+          <strong>{{ note.name }}</strong>?</p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+</form>
