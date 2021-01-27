@@ -11,6 +11,7 @@ from rasterio.plot import reshape_as_raster, reshape_as_image
 from .VI import Calulate_VIS
 from .folders import ifFolder, rgb2gray
 from .savefiles import SaveVI
+from .Otsu import CalculateOtsu, PutMask
 
 
 def CalculateVi(user):
@@ -29,6 +30,8 @@ def CalculateVi(user):
     path_ndvi = path_resul + 'NDVI.jpg'
     path_savi = path_resul + 'SAVI.jpg'
     path_evi2 = path_resul + 'EVI2.jpg'
+    path_gray = path_resul + 'EVI2_gray.jpg'
+    path_without = path_resul + 'WITHOUT.jpg'
 
     # Bands
     dsRED = rasterio.open(red_path)
@@ -48,6 +51,26 @@ def CalculateVi(user):
             vi=vi,
             vi_path=path
         )
+
+    # Save gray Vi
+    SaveVI(
+        vi=evi2,
+        color_map='gray',
+        vi_path=path_gray
+    )
+
+    mask_path,th2=CalculateOtsu(
+        folder=path_resul,
+        file=path_gray,
+    )
+
+    PutMask(
+        mask=mask_path,
+        image=path_evi2,
+        mask_otsu=th2,
+        path_save=path_without,
+    )
+
 
 def MakeCloustering(user,number,path_detection):
     """Make cloustering."""

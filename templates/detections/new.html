@@ -33,7 +33,7 @@
                             <h6 class="text-overflow m-0">Select type!</h6>
                           </div>
                           <a class="dropdown-item" id="rgb-tab" data-toggle="tab" href="#rgb" role="tab" aria-controls="rgb" ><i class="ni ni-image"></i>RGB</a>
-                          <a class="dropdown-item" href="#"><i class="ni ni-ungroup"></i>Without ground</a>
+                          <a class="dropdown-item" id="without-tab" data-toggle="tab" href="#without" role="tab" aria-controls="without"><i class="ni ni-ungroup"></i>Without ground</a>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item class-ndvi" id="ndvi-tab" data-toggle="tab" href="#ndvi" role="tab" aria-controls="ndvi" ><i class="ni ni-diamond"></i>NDVI</a>
                           <a class="dropdown-item class-savi" id="savi-tab" data-toggle="tab" href="#savi" role="tab" aria-controls="savi" ><i class="ni ni-umbrella-13"></i>SAVI</a>
@@ -54,6 +54,15 @@
                       <img width="272px" name="picture" src="{{MEDIA_URL}}/temp/bands/{{request.user.username}}/RGB_temp.JPG" alt="RGB" />
                     {% else %}
                       <img width="276px" src="{% static 'assets/img/theme/default_image.jpg' %}" alt="RGB"/>
+                    {% endif %}
+                  </div>
+
+                  <!-- New Without -->
+                  <div class="tab-pane fade" id="without" role="tabpanel" aria-labelledby="without-tab">
+                    {% if save_detect %}
+                      <img width="272px" name="picture" src="{{MEDIA_URL}}/temp/results/{{request.user.username}}/WITHOUT.jpg" alt="WITHOUT" />
+                    {% else %}
+                      <img width="276px" src="{% static 'assets/img/theme/default_image.jpg' %}" alt="WITHOUT"/>
                     {% endif %}
                   </div>
 

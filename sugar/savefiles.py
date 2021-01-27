@@ -70,14 +70,16 @@ def SaveDetection(request,user,profile,detection_name,status,note_name,note_text
     path_picture_ndvi ='media/temp/results/'+str(request.user.username)+'/NDVI.jpg'
     path_picture_savi ='media/temp/results/'+str(request.user.username)+'/SAVI.jpg'
     path_picture_evi2 ='media/temp/results/'+str(request.user.username)+'/EVI2.jpg'
+    path_picture_without = 'media/temp/results/'+str(request.user.username)+'/WITHOUT.jpg'
 
     picture_name = 'RGB.jpg'
     picture_ndvi_name = 'NDVI.jpg'
     picture_savi_name = 'SAVI.jpg'
     picture_evi2_name = 'EVI2.jpg'
+    picture_without_name = 'WITHOUT.jpg'
 
-    path_pictures = [path_picture,path_picture_ndvi,path_picture_savi,path_picture_evi2]
-    picture_names = [picture_name,picture_ndvi_name,picture_savi_name,picture_evi2_name]
+    path_pictures = [path_picture,path_picture_ndvi,path_picture_savi,path_picture_evi2,path_picture_without]
+    picture_names = [picture_name,picture_ndvi_name,picture_savi_name,picture_evi2_name,picture_without_name]
     picture_files = []
 
     for path,name in zip(path_pictures,picture_names):
@@ -98,6 +100,7 @@ def SaveDetection(request,user,profile,detection_name,status,note_name,note_text
     detection_instance.picture_ndvi.save(picture_ndvi_name, picture_files[1])
     detection_instance.picture_savi.save(picture_savi_name, picture_files[2])
     detection_instance.picture_evi2.save(picture_evi2_name, picture_files[3])
+    detection_instance.picture_without.save(picture_without_name, picture_files[4])
     detection_instance.save()
 
     if note_name:

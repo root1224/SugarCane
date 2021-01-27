@@ -10,6 +10,11 @@
       <img height="468px" alt="{{ detection.name }}" src="{{ detection.picture.url }}">
     </div>
 
+    <!-- Without image -->
+    <div class="tab-pane fade" id="without" role="tabpanel" aria-labelledby="without-tab">
+      <img height="468px" alt="{{ detection.name }}" src="{{ detection.picture_without.url }}">
+    </div>
+
     <!-- NDVI image -->
     {% if done_clouster == 'ndvi' %}
     <div class="tab-pane fade show active" id="ndvi" role="tabpanel" aria-labelledby="ndvi-tab">
