@@ -1,3 +1,4 @@
+{% include "includes/load.html" %}
 <div class="card-header bg-white border-0">
   <div class="row align-items-center">
     <div class="col-4">
@@ -12,7 +13,7 @@
       {% if save_detect %}
         <button disabled type="submin" class="btn btn-sm btn-primary btn-block ">Detection</button>
       {% else %}
-        <button type="submit" name="detect" class="btn btn-sm btn-primary btn-block ">Detection</button>
+        <button type="submit" name="detect" onclick="openLoad()" class="btn btn-sm btn-primary btn-block ">Detection</button>
       {% endif %}
     </div>
     <div class="col-3 text-right">
@@ -114,7 +115,7 @@
                 <label for="message-text" class="form-control-label">Note Text:</label>
                 <textarea class="form-control" id="note_text" name="note_text" placeholder="Write your note here."></textarea>
               </div>
-            </div>  
+            </div>
           </div>
         </div>
       </div>
@@ -122,7 +123,14 @@
   {% endif %}
 </div>
 
+{% block javascripts %}
 <script type="text/javascript">
+
+  function openLoad() {
+    document.getElementById("myLoad").style.display = "block";
+  }
+
+  /* New note section in new detection */
   var acc = document.getElementsByClassName("accordion");
   var i;
 
@@ -138,3 +146,4 @@
   });
   }
 </script>
+{% endblock javascripts %}
