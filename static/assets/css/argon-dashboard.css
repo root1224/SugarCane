@@ -20728,4 +20728,48 @@ pre>code.highlight {
   transition: max-height 0.2s ease-out;
 }
 
+
+
+.class-ndvi:hover::before {
+  content: 'NDVI (Normalized Difference Vegetation Index) is a measure of the state of plant health based on how the plant reflects light at certain frequencies (some waves are absorbed and others are reflected).';
+  position: absolute;
+  display: block;
+  padding: 3px 6px;
+  border-radius: 2px;
+  background: #000;
+  color: #fff;
+  font-size: 12px;
+  font-family: sans-serif;
+  white-space: pre-wrap;
+  transform: translate(-192px, 0px)
+}
+
+.class-savi:hover::before {
+  content: 'SAVI (Soil Adjusted Vegetation Index) is an alternative to the conventional NDVI index aimed at correcting the influence exerted by the soil during vegetation studies through electromagnetic spectrum bands.';
+  position: absolute;
+  display: block;
+  padding: 3px 6px;
+  border-radius: 2px;
+  background: #000;
+  color: #fff;
+  font-size: 12px;
+  font-family: sans-serif;
+  white-space: pre-wrap;
+  transform: translate(-192px, 0px)
+}
+
+.class-evi2:hover::before {
+  content: 'EVI (Enhanced vegetation index) is an optimized vegetation index designed to enhance the vegetation signal with improved sensitivity in high biomass regions and improved vegetation monitoring through a decoupling of the canopy background signal and a reduction in atmosphere influences.';
+  position: absolute;
+  display: block;
+  padding: 3px 6px;
+  border-radius: 2px;
+  background: #000;
+  color: #fff;
+  font-size: 12px;
+  font-family: sans-serif;
+  white-space: pre-wrap;
+  transform: translate(-192px, 0px)
+}
+
 /*# sourceMappingURL=dashboard-free.css.map */
