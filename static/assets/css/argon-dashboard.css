@@ -15461,7 +15461,7 @@ a.btn-icon-only {
 }
 
 .card-profile-image img:hover {
-  transform: translate(-50%, -33%);
+  /*transform: translate(-50%, -33%);*/
 }
 
 .card-profile-stats {
@@ -20937,4 +20937,48 @@ box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1
     -o-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+}
+
+/* Select file in avatar picture */
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .3s ease;
+  background-color: red;
+}
+
+.container:hover .overlay {
+  opacity: 1;
+}
+
+.icon {
+  color: white;
+  font-size: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.fa-user:hover {
+  color: #eee;
+}
+
+.image-upload>input {
+  display: none;
 }
