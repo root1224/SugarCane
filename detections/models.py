@@ -42,6 +42,8 @@ class Detection(models.Model):
         upload_to='detections/Without'
     )
 
+    water_stress = models.FloatField()
+    water_stress_percent = models.IntegerField()
 
     satatus_of_field = models.CharField(
         max_length=10,

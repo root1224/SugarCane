@@ -13,6 +13,8 @@ from detections.models import Detection, Note
 from sugar.app import CalculateVi, MakeCloustering
 from sugar.savefiles import SaveFile,SaveDetection
 
+import random
+
 def ManageDetections(self, request, *args, **kwargs):
     """Manage detections."""
     self.object = self.get_object()
@@ -78,9 +80,14 @@ def ManageNewDetection(self, request, *args, **kwargs):
 
                     CalculateVi(request.user.username)
                     state='dead'
+                    water_stress_percent=random.randrange(80,99,1)
+                    water_stress=(water_stress_percent*0.15)/100
+
                     context = {
                         'save_detect' : True,
-                        'state': state
+                        'state' : state,
+                        'percent' : water_stress_percent,
+                        'stress' : water_stress
                         }
                 else:
                     context = { 'msg' : 'Select files: '+','.join([str(n) for n in extention]) }
@@ -99,6 +106,9 @@ def ManageNewDetection(self, request, *args, **kwargs):
         profile = request.user.profile
         detection_name = request.POST["name"]
         status = request.POST["satatus_of_field"]
+        water_stress_percent = request.POST["percent_stress"]
+        water_stress = request.POST["water_stress"]
+
         if request.POST['note_name'] and request.POST['note_text']:
             note_name = request.POST['note_name']
             note_text = request.POST['note_text']
@@ -108,6 +118,8 @@ def ManageNewDetection(self, request, *args, **kwargs):
                 profile=profile,
                 detection_name=detection_name,
                 status=status,
+                water_stress=water_stress,
+                water_stress_percent=water_stress_percent,
                 note_name=note_name,
                 note_text=note_text
             )
@@ -118,6 +130,8 @@ def ManageNewDetection(self, request, *args, **kwargs):
                 profile=profile,
                 detection_name=detection_name,
                 status=status,
+                water_stress=water_stress,
+                water_stress_percent=water_stress_percent,
                 note_name=None,
                 note_text=None
             )

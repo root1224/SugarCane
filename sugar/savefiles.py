@@ -60,7 +60,7 @@ def SaveFile(request_file, user):
     ifExist(path_file=path_file, request_file=request_file)
 
 
-def SaveDetection(request,user,profile,detection_name,status,note_name,note_text):
+def SaveDetection(request,user,profile,detection_name,status,water_stress,water_stress_percent,note_name,note_text):
     """Save detection in DB."""
     #https://stackoverflow.com/questions/35581356/save-matplotlib-plot-image-into-django-model/35633462
     #https://stackoverflow.com/questions/3723220/how-do-you-convert-a-pil-image-to-a-django-file
@@ -89,10 +89,14 @@ def SaveDetection(request,user,profile,detection_name,status,note_name,note_text
         picture_file = InMemoryUploadedFile(tempfile_io, None, name,'image/jpeg',tempfile_io.tell, None)
         picture_files.append(picture_file)
 
+
+
     detection_instance = Detection(
         user=user,
         profile=profile,
         name=detection_name,
+        water_stress=water_stress,
+        water_stress_percent=water_stress_percent,
         satatus_of_field=status,
         )
 

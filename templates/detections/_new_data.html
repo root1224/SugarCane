@@ -78,11 +78,14 @@
       </div>
       <div class="col-lg-6">
         <div class="form-group">
-          <label class="form-control-label" for="input-created">Created</label>
+          <label class="form-control-label" for="input-created">Percet of water stress</label>
           <input disabled
           class="form-control form-control-alternative"
-          placeholder="{% now "SHORT_DATETIME_FORMAT" %}"
+          placeholder="{%if state %}{{percent}}%{%else%}None{%endif%}"
+          value="{{percent}}"
           >
+          <input type="hidden" id="percent_stress" name = "percent_stress" value="{{percent}}">
+          <input type="hidden" id="water_stress" name="water_stress" value="{{stress}}">
         </div>
       </div>
     </div>
