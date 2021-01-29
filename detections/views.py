@@ -32,7 +32,7 @@ class AllDetectionsView(LoginRequiredMixin, ListView):
     template_name = 'detections/all.html'
     model = Detection
     ordering = ('-created',)
-    paginate_by = 5
+    #paginate_by = 5
     context_object_name = 'detections'
 
 class NewDetectionView(LoginRequiredMixin, TemplateView):

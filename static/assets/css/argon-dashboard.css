@@ -1979,6 +1979,13 @@ pre code {
   border: 0;
 }
 
+#table-scroll {
+  height:150px;
+  overflow:auto;
+  margin-top:20px;
+}
+
+
 .form-control {
   display: block;
   width: 100%;

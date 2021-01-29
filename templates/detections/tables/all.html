@@ -15,9 +15,9 @@
   </div>
 </div>
 
-
-<div class="table-responsive">
-  <table id="detectionsTable" class="table align-items-center table-dark table-flush">
+<!--<div class="table-responsiv">-->
+<div class="">
+  <table id="table-scroll" class="table align-items-center table-dark table-flush">
     <thead class="thead-dark">
       <tr>
         <th scope="col">Name</th>
@@ -32,15 +32,15 @@
       {% for detection in detections %}
         <tr id="myTR">
           <!-- Name -->
-          <th scope="row" value="{{detection.name}}">
+          <td scope="row" value="{{detection.name}}">
             <div class="media align-items-center">
               <div class="media-body">
                 <a href="{% url "detections:detection_detail" detection.name %}">
-                  <span style="color:white" class="mb-0 text-sm">{{ detection.name }}</span>
+                  <span style="color:white" class="mb-0 text-sm"><b>{{ detection.name }}</b></span>
                 </a>
               </div>
             </div>
-          </th>
+          </td>
           <!-- Status -->
           <td>
             <span class="badge badge-dot mr-4">
@@ -115,7 +115,7 @@
     table = document.getElementById("detectionsTable");
     tr = table.getElementsByTagName("tr");
     for (i = 0; i < tr.length; i++) {
-      td = tr[i].getElementsByTagName("th")[0];
+      td = tr[i].getElementsByTagName("td")[0];
       if (td) {
         txtValue = td.textContent || td.innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
