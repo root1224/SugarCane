@@ -11,13 +11,13 @@ class Detection(models.Model):
     Proxy model that extends the base data with other
     information.
     """
-    DEAD = 'dead'
-    SAVE = 'save'
+    DANGER = 'danger'
+    WARNING = 'warning'
     GOOD = 'good'
 
     SATATUS_OF_FIELD = [
-        (DEAD, 'Dead'),
-        (SAVE, 'Save'),
+        (DANGER, 'Danger'),
+        (WARNING, 'Warning'),
         (GOOD, 'Good'),
     ]
 

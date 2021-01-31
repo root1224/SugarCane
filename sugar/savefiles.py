@@ -8,7 +8,7 @@ from detections.models import Detection, Note
 # Math libs
 import numpy as np
 import matplotlib.pyplot as plt  # Plot images
-
+import matplotlib as mpl
 # My apps
 from .clouster import cloustering
 from .folders import ifExist, ifFolder
@@ -18,27 +18,42 @@ from PIL import Image
 import os
 from io import BytesIO
 
+def semaforo(vmin,vmax,cmap,N):
+  # Normalizer
+  norm = mpl.colors.Normalize(vmin=vmin, vmax=vmax)
+  # creating ScalarMappable
+  sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
+  sm.set_array([])
+  return sm
+
 
 def SaveVI(vi, N=None, color_map='RdYlGn', vi_path=None):
     """Save or plot vegetation index image."""
     ifExist(path_file=vi_path,request_file=None)
 
+    # Inicializar la figura
     if N is None:
-        # Guardar imagen simple de indice de vegetacion
+        fig = plt.figure()
+        # Guardar imagen simple de indice de vegetacion a escala de grises
         plt.figure(figsize=(16.92,12.72), dpi=100)
-        plt.imshow(vi, cmap=color_map)
+        plt.imshow(vi, cmap=color_map, vmin=np.min(vi), vmax=np.max(vi))
         plt.axis("off")
-        plt.savefig(vi_path, dpi=100, bbox_inches='tight', pad_inches=0)
+        plt.savefig(vi_path, bbox_inches='tight', pad_inches=0)
+
     else:
         # Obtener las escalas de colores
         cmap = plt.get_cmap(color_map, N)
-        # Segmentacion por cloustering
+        #Segmentacion por cloustering
         img,vmin,vmax = cloustering(vi,N)
-        # Guardar imagen cloustering de indice de vegetacion
-        plt.figure(figsize=(16.92,12.72), dpi=100)
-        plt.imshow(img, cmap=cmap,vmin=vmin, vmax=vmax)
-        plt.axis("off")
-        plt.savefig(vi_path, dpi=100, bbox_inches='tight', pad_inches=0)
+
+        fig, ax = plt.subplots()
+        fig.set_size_inches(22.94, 33.94)
+        cax = fig.add_axes([0.14, 0.32, 0.01, 0.15])  # si esta en vertial (x,y, ancho, alto)
+        # Guardar imagen cloustering de indice de vegetacion a color
+        im = ax.imshow(img, cmap=cmap,vmin=vmin, vmax=vmax)
+        fig.colorbar(semaforo(vmin,vmax,cmap,N), cax=cax, orientation='vertical',)
+        ax.axis("off")
+        fig.savefig(vi_path, bbox_inches='tight', pad_inches=0)
 
 
 def SaveFile(request_file, user):
@@ -49,6 +64,10 @@ def SaveFile(request_file, user):
         name = 'NIR_temp.TIF'
     elif 'RED' in request_file.name:
         name = 'RED_temp.TIF'
+    elif 'REG' in request_file.name:
+        name = 'REG_temp.TIF'
+    elif 'GRE' in request_file.name:
+        name = 'GRE_temp.TIF'
     else:
         name = 'Other_temp.JPG'
 

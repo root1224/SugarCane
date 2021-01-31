@@ -12,6 +12,7 @@ from .VI import Calulate_VIS
 from .folders import ifFolder, rgb2gray
 from .savefiles import SaveVI
 from .Otsu import CalculateOtsu, PutMask
+from .procesar import ProyectividadOpenCV
 
 
 def CalculateVi(user):
@@ -23,8 +24,11 @@ def CalculateVi(user):
     ifFolder(path_resul)
 
     # Bands paths
+    rgb_path = path_bands + 'RGB_temp.JPG'
     red_path = path_bands + 'RED_temp.TIF'
     nir_path = path_bands + 'NIR_temp.TIF'
+    green_path = path_bands + 'GRE_temp.TIF'
+    reg_path = path_bands + 'REG_temp.TIF'
 
     # Vi paths
     path_ndvi = path_resul + 'NDVI.jpg'
@@ -34,13 +38,12 @@ def CalculateVi(user):
     path_without = path_resul + 'WITHOUT.jpg'
 
     # Bands
-    dsRED = rasterio.open(red_path)
-    dsNIR = rasterio.open(nir_path)
-    RED = dsRED.read(1).astype('float64')  # Red band from uint8 to float64
-    NIR = dsNIR.read(1).astype('float64')  # Infrared band from uint8 to float64
-
-    # Calculate VIs
-    ndvi,savi,evi2 = Calulate_VIS(RED,NIR)
+    suga_procesar = ProyectividadOpenCV()
+    "Se envían las URL y se obtienen los índices NDVI y una imagen adecuada para visualizar"
+    vis = suga_procesar.vis_calculation(red_path, nir_path,width=1280, height=960)
+    ndvi = vis['ndvi'][0]
+    savi = vis['savi'][0]
+    evi2 = vis['evi2'][0]
 
     path_vis = [path_ndvi,path_savi,path_evi2]
     vis = [ndvi,savi,evi2]
@@ -59,6 +62,7 @@ def CalculateVi(user):
         vi_path=path_gray
     )
 
+    # Make Otsu
     mask_path,th2=CalculateOtsu(
         folder=path_resul,
         file=path_gray,
