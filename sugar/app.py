@@ -8,7 +8,7 @@ import rasterio
 from rasterio.plot import reshape_as_raster, reshape_as_image
 
 # My apps
-from .VI import Calulate_VIS
+from .VI import Calulate_VIS, Reflectance
 from .folders import ifFolder, rgb2gray
 from .savefiles import SaveVI
 from .Otsu import CalculateOtsu, PutMask
@@ -74,6 +74,10 @@ def CalculateVi(user):
         mask_otsu=th2,
         path_save=path_without,
     )
+
+    state,water_stress_percent,water_stress = Reflectance(th2,green_path)
+    
+    return state,water_stress_percent,water_stress
 
 
 def MakeCloustering(user,number,path_detection):

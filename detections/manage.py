@@ -82,10 +82,7 @@ def ManageNewDetection(self, request, *args, **kwargs):
                     for request_file in files_detection:
                         SaveFile(request_file, request.user.username)
 
-                    CalculateVi(request.user.username)
-                    state='danger'
-                    water_stress_percent=random.randrange(80,99,1)
-                    water_stress=(water_stress_percent*0.15)/100
+                    state,water_stress_percent,water_stress = CalculateVi(request.user.username)
 
                     context = {
                         'save_detect' : True,

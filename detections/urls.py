@@ -19,11 +19,6 @@ urlpatterns = [
         name='new_detection'
     ),
     path(
-        route='detections/',
-        view=views.AllDetectionsView.as_view(),
-        name='all_detections',
-    ),
-    path(
         route='last_detection/',  # Detection Management
         view=views.LastDetectionView.as_view(),
         name='last_detection'

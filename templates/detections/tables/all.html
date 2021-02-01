@@ -75,9 +75,9 @@
               <span class="mr-2">{{ detection.water_stress_percent }}%</span>
               <div>
                 <div class="progress">
-                  {% if detection.water_stress_percent >= 93 %}
+                  {% if detection.water_stress_percent >= 90 %}
                   <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{detection.water_stress_percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{detection.water_stress_percent}}%;"></div>
-                  {% elif detection.water_stress_percent >= 85 %}
+                  {% elif detection.water_stress_percent >= 81 %}
                   <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{detection.water_stress_percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{detection.water_stress_percent}}%;"></div>
                   {% else %}
                   <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="{{detection.water_stress_percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{detection.water_stress_percent}}%;"></div>

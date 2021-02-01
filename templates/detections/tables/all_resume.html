@@ -1,0 +1,55 @@
+{% load static %}
+<div class="card-header bg-transparent border-0">
+  <div class="row">
+    <h3 class="text-white mb-0">Detections</h3>
+  </div>
+</div>
+
+<!--<div class="table-responsiv">-->
+<div class="">
+  <table id="table-scroll" class="table align-items-center table-dark table-flush">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Water Streess</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for detection in detections %}
+        <tr id="myTR">
+          <!-- Name -->
+          <td scope="row" value="{{detection.name}}">
+            <div class="media align-items-center">
+              <div class="media-body">
+                <a href="{% url "detections:detection_detail" detection.name %}">
+                  <span style="color:white" class="mb-0 text-sm"><b>{{ detection.name }}</b></span>
+                </a>
+              </div>
+            </div>
+          </td>
+          <!-- Water Streess -->
+          <td>
+            <div class="d-flex align-items-center">
+              <span class="mr-2">{{ detection.water_stress_percent }}%</span>
+              <div>
+                <div class="progress">
+                  {% if detection.water_stress_percent >= 90 %}
+                  <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{detection.water_stress_percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{detection.water_stress_percent}}%;"></div>
+                  {% elif detection.water_stress_percent >= 81 %}
+                  <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{detection.water_stress_percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{detection.water_stress_percent}}%;"></div>
+                  {% else %}
+                  <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="{{detection.water_stress_percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{detection.water_stress_percent}}%;"></div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+{% block javascripts %}
+{% endblock javascripts %}

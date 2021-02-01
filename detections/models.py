@@ -43,7 +43,7 @@ class Detection(models.Model):
     )
 
     water_stress = models.FloatField()
-    water_stress_percent = models.IntegerField()
+    water_stress_percent = models.FloatField()
 
     satatus_of_field = models.CharField(
         max_length=10,
