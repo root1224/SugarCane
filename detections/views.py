@@ -28,25 +28,25 @@ class IndexView(LoginRequiredMixin, ListView):
     """Return Index."""
     template_name = 'detections/index.html'
     model = Detection
-    context_object_name = 'detections'
 
     def get_context_data(self, **kwargs):
         #https://canvasjs.com/javascript-range-area-spline-area-chart/
         context = super().get_context_data(**kwargs)
-        last_month = datetime.today() - timedelta(days=30)
+        last_month = datetime.today() - timedelta(days=7)
         detections_month = Detection.objects.filter(created__gte=last_month).order_by('created')
         detections_m = ""
         detections_m_name = ""
+        detections_m_date = ""
 
         for detection in detections_month:
             detections_m = detections_m+";"+str(detection.water_stress_percent)
-            detections_m_name = detections_m_name+";"+str(detection.name)
-
-        print(detections_m)
-        print(detections_m_name)
+            detections_m_name=detections_m_name+";"+str(detection.name)
+            detections_m_date = detections_m_date+";"+str(detection.created)
 
         context['detections_stress'] = detections_m
         context['detections_name'] = detections_m_name
+        context['detections_date'] = detections_m_date
+        context['detections'] = Detection.objects.all().order_by('-created')
 
         return context
 

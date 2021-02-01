@@ -5,6 +5,7 @@ from django.core.files.storage import FileSystemStorage
 # Others
 import os
 from PIL import Image
+import cv2
 
 
 def ifExist(path_file, request_file):
@@ -18,6 +19,11 @@ def ifExist(path_file, request_file):
         file = fs.save(path_file, request_file)  #request_file.name
     # the fileurl variable now contains the url to the file. This can be used to serve the file when needed.
     # fileurl = fs.url(file)
+    if 'RGB' in path_file:
+        img = cv2.imread(path_file)
+        img_rotate_180 = cv2.rotate(img, cv2.ROTATE_180)
+        cv2.imwrite(path_file, img_rotate_180)
+
 
 def ifFolder(path):
     """Check if folder exists."""

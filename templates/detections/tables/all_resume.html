@@ -16,7 +16,7 @@
     </thead>
     <tbody>
       {% for detection in detections %}
-        <tr id="myTR">
+        <tr id="myTR" class="thead-dark">
           <!-- Name -->
           <td scope="row" value="{{detection.name}}">
             <div class="media align-items-center">
@@ -33,9 +33,9 @@
               <span class="mr-2">{{ detection.water_stress_percent }}%</span>
               <div>
                 <div class="progress">
-                  {% if detection.water_stress_percent >= 90 %}
+                  {% if detection.satatus_of_field == 'good' %}
                   <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{detection.water_stress_percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{detection.water_stress_percent}}%;"></div>
-                  {% elif detection.water_stress_percent >= 81 %}
+                  {% elif detection.satatus_of_field == 'warning' %}
                   <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="{{detection.water_stress_percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{detection.water_stress_percent}}%;"></div>
                   {% else %}
                   <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="{{detection.water_stress_percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{detection.water_stress_percent}}%;"></div>

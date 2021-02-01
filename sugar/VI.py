@@ -63,13 +63,11 @@ def Reflectance(mask,green):
           refl += final_img[x][y]
           cnt += 1
 
-    water_stress = ((refl/cnt)-1)
-    if water_stress >= 15:
-        water_stress_percent = 92.3
-    elif water_stress <= 10:
+    water_stress = round(((refl/cnt)-1),2)
+    if water_stress <= 10:
         water_stress_percent = 77.7
     else:
-        water_stress_percent = (water_stress*92.3)/15
+        water_stress_percent = round(((water_stress*92.3)/15),1)
 
     if water_stress_percent == 92.3:
         state = 'good'

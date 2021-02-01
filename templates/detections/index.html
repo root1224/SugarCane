@@ -10,7 +10,9 @@
 
 
 <script type="text/javascript">
-  var strX = "{{detections_name}}";
+
+  var strname = "{{detections_name}}"
+  var strX = "{{detections_date}}";
   var strY = "{{detections_stress}}";
 window.onload = function () {
 
@@ -23,22 +25,28 @@ window.onload = function () {
         title: "Water Content",
         suffix: "%"
       },
+      toolTip:{
+    		shared: true,
+    		content: "<strong>{name}:</strong><br> Water Stress: {y}%<br> Date: {x}"
+    	},
       legend:{
     		cursor:"pointer",
     	},
   	data: [{
-  		type: "spline",
+  		type: "line",
   		dataPoints: []
   	}]
   });
 
+  var nameVal = strname.split(";");
   var xVal = strX.split(";");
   var yVal = strY.split(";");
 
   for(var i = 0; i < xVal.length; i++) {
   chart.options.data[0].dataPoints.push({
-    label:xVal[i],
-    y: parseFloat(yVal[i])
+    x:new Date(xVal[i]),
+    y:parseFloat(yVal[i]),
+    name:nameVal[i]
   });
   }
 
