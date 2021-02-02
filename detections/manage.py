@@ -94,7 +94,7 @@ def ManageNewDetection(self, request, *args, **kwargs):
                     context = { 'msg' : 'Select files: '+','.join([str(n) for n in extention]) }
             else:
                 context = {
-                    'msg' : 'Select three files.'
+                    'msg' : 'Select five files.'
                 }
         else:
             context = {

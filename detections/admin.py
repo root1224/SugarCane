@@ -17,6 +17,8 @@ class NoteInline(admin.TabularInline):
 
 @admin.register(Detection)
 class DetectionAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request, obj=None):
+        return False
     """Detection admin."""
     inlines =(NoteInline,)
     # Campos a mostrar
