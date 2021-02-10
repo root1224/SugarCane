@@ -32,7 +32,7 @@ class IndexView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         #https://canvasjs.com/javascript-range-area-spline-area-chart/
         context = super().get_context_data(**kwargs)
-        last_month = datetime.today() - timedelta(days=7)
+        last_month = datetime.today() - timedelta(days=14)
         detections_month = Detection.objects.filter(created__gte=last_month).order_by('created')
         detections_m = ""
         detections_m_name = ""
@@ -47,6 +47,7 @@ class IndexView(LoginRequiredMixin, ListView):
         context['detections_name'] = detections_m_name
         context['detections_date'] = detections_m_date
         context['detections'] = Detection.objects.all().order_by('-created')
+        context['v'] = 'some-string'
 
         return context
 

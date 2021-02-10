@@ -8,34 +8,63 @@
 {% block content %}
 
 
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.stock.min.js"></script>
 
 <script type="text/javascript">
-
   var strname = "{{detections_name}}"
   var strX = "{{detections_date}}";
   var strY = "{{detections_stress}}";
 window.onload = function () {
-
-  var chart = new CanvasJS.Chart("chartContainer", {
+  var dataPoints1 = [];
+  var chart = new CanvasJS.StockChart("chartContainer",{
+    theme: "light2",
     animationEnabled: true,
-    	title:{
-    		text: "Water Stress"
-    	},
-      axisY :{
+    title:{
+      text:"Water Stress"
+    },
+    subtitles: [{
+      text: "No of Trades: BTC/USD vs BTC/EUR"
+    }],
+    charts: [{
+      axisY: {
         title: "Water Content",
         suffix: "%"
       },
-      toolTip:{
-    		shared: true,
-    		content: "<strong>{name}:</strong><br> Water Stress: {y}%<br> Date: {x}"
-    	},
-      legend:{
-    		cursor:"pointer",
-    	},
-  	data: [{
-  		type: "line",
-  		dataPoints: []
-  	}]
+      toolTip: {
+        shared: true,
+        content: "<a><strong>{name}:</strong></a><br> Water Stress: {y}%<br> Date: {x}"
+
+      },
+      legend: {
+            cursor: "pointer",
+            itemclick: function (e) {
+              if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible)
+                e.dataSeries.visible = false;
+              else
+                e.dataSeries.visible = true;
+              e.chart.render();
+            }
+        },
+      data: [{
+        type: "line",
+        xValueType: "dateTime",
+        click: onClick,
+        dataPoints : dataPoints1
+      }]
+    }],
+    rangeSelector: {
+      enabled: false
+    },
+    navigator: {
+      data: [{
+        dataPoints: dataPoints1
+      }],
+      slider: {
+        minimum: new Date(2018, 00, 15),
+        maximum: new Date(2018, 01, 01)
+      }
+    }
   });
 
   var nameVal = strname.split(";");
@@ -43,7 +72,7 @@ window.onload = function () {
   var yVal = strY.split(";");
 
   for(var i = 0; i < xVal.length; i++) {
-  chart.options.data[0].dataPoints.push({
+  dataPoints1.push({
     x:new Date(xVal[i]),
     y:parseFloat(yVal[i]),
     name:nameVal[i]
@@ -51,9 +80,14 @@ window.onload = function () {
   }
 
   chart.render();
-
+  function onClick(e) {
+    var url = "{% url 'detections:detection_detail' name=0 %}".replace('0', e.dataPoint.name);
+    window.location.replace(url)
+    //alert(  e.dataSeries.type + ", dataPoint { x:" + e.dataPoint.x + ", y: "+ e.dataPoint.y + " }" );
+  }
 }
 </script>
+
 
 
 
