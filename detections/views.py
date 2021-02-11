@@ -29,10 +29,14 @@ class IndexView(LoginRequiredMixin, ListView):
     template_name = 'detections/index.html'
     model = Detection
 
+    def __init__(self, *args, **kwargs):
+        super(IndexView, self).__init__(*args, **kwargs)
+        self.object_list = self.get_queryset()
+
     def get_context_data(self, **kwargs):
         #https://canvasjs.com/javascript-range-area-spline-area-chart/
         context = super().get_context_data(**kwargs)
-        last_month = datetime.today() - timedelta(days=14)
+        last_month = datetime.now() - timedelta(days=14)
         detections_month = Detection.objects.filter(created__gte=last_month).order_by('created')
         detections_m = ""
         detections_m_name = ""
@@ -47,9 +51,19 @@ class IndexView(LoginRequiredMixin, ListView):
         context['detections_name'] = detections_m_name
         context['detections_date'] = detections_m_date
         context['detections'] = Detection.objects.all().order_by('-created')
-        context['v'] = 'some-string'
-
         return context
+
+    def post(self, request, *args, **kwargs):
+        if 'search' in request.POST:
+            context = self.get_context_data()
+            fromdate = request.POST['fromdate']
+            todate = request.POST['todate']
+            date_object =  datetime.strptime(todate, "%Y-%m-%d")
+            date_object += timedelta(days=1)
+            todate = date_object.strftime("%Y-%m-%d")
+            detection_instances = Detection.objects.filter(created__range=[fromdate, todate]).order_by('-created')
+            context['detections'] = detection_instances
+            return render(request,'detections/index.html',context)
 
 
 class AllDetectionsView(LoginRequiredMixin, ListView):

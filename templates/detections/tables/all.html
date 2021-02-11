@@ -1,19 +1,21 @@
 {% load static %}
-<div class="card-header bg-transparent border-0">
-  <div class="row">
-    <h3 class="text-white mb-0">Detections</h3>
-    <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-      <div class="form-group mb-0">
-        <div class="input-group input-group-alternative">
-          <div class="input-group-prepend">
-            <span class="input-group-text"><i class="fas fa-search"></i></span>
-          </div>
-          <input class="form-control" id="myInput" placeholder="Search detection..." onkeyup="myFunction()" type="text">
+<form method="POST">
+  {% csrf_token %}
+  <div class="card-header bg-transparent border-0">
+    <div class="row">
+      <div class="col-7">
+        <h3 class="text-white mb-0">Detections</h3>
+      </div>
+      <div class="col">
+        <div class="row">
+          From: <input type="date" name="fromdate" value="None" class="form-control form-control-alternative" style="width:112px; height:35px; padding: 0.0rem 0.0rem;">&nbsp;&nbsp;
+          To: <input type="date" name="todate" value="None" class="form-control form-control-alternative" style="width:112px; height:35px; padding: 0.0rem 0.0rem;">&nbsp;&nbsp;
+          <input type="submit" name="search" value="Search" class="btn btn-sm btn-primary btn-block" style="width:70px;">
         </div>
       </div>
-    </form>
+    </div>
   </div>
-</div>
+</form>
 
 <!--<div class="table-responsiv">-->
 <div class="">
