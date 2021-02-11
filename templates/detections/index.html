@@ -15,11 +15,13 @@
   var strname = "{{detections_name}}"
   var strX = "{{detections_date}}";
   var strY = "{{detections_stress}}";
+
 window.onload = function () {
   var dataPoints1 = [];
   var chart = new CanvasJS.StockChart("chartContainer",{
     theme: "light2",
     animationEnabled: true,
+    exportEnabled: true,
     title:{
       text:"Water Stress"
     },
@@ -54,7 +56,20 @@ window.onload = function () {
       }]
     }],
     rangeSelector: {
-      enabled: false
+      enabled: true,
+      buttons: [{
+        range: 1,
+        rangeType: "day",
+        label: "1 DAY"
+      },{
+        range: 1,
+        rangeType: "1",
+        rangeType: "week",
+        label: "1 WEEK"
+      },{
+        rangeType: "all",
+        label: "Show All" //Change it to "All"
+      }],
     },
     navigator: {
       data: [{
