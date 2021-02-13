@@ -8,6 +8,7 @@ from django.views.generic.base import TemplateView
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
+from django.http import HttpResponse
 # Models
 from detections.models import Detection, Note
 
@@ -54,7 +55,7 @@ class IndexView(LoginRequiredMixin, ListView):
         return context
 
     def post(self, request, *args, **kwargs):
-        if 'search' in request.POST:
+        if request.method == 'POST':
             context = self.get_context_data()
             fromdate = request.POST['fromdate']
             todate = request.POST['todate']
@@ -63,7 +64,26 @@ class IndexView(LoginRequiredMixin, ListView):
             todate = date_object.strftime("%Y-%m-%d")
             detection_instances = Detection.objects.filter(created__range=[fromdate, todate]).order_by('-created')
             context['detections'] = detection_instances
-            return render(request,'detections/index.html',context)
+            #return render(request,'detections/index.html',context)
+            #return HttpResponse('======= YA ESTA =======')
+            return HttpResponse(render(request,'detections/tables/all.html',context))
+
+
+def search(request):
+    context = []
+    if request.method == 'POST':
+        fromdate = request.POST['fromdate']
+        todate = request.POST['todate']
+        date_object =  datetime.strptime(todate, "%Y-%m-%d")
+        date_object += timedelta(days=1)
+        todate = date_object.strftime("%Y-%m-%d")
+        detection_instances = Detection.objects.filter(created__range=[fromdate, todate]).order_by('-created')
+        context['detections'] = detection_instances
+        print("============ YA ESTA =============")
+        #return render(request,'detections/index.html',context)
+        #return HttpResponse(render(request,'detections/tables/all.html',context))
+        return HttpResponse('======= YA ESTA =======')
+
 
 
 class AllDetectionsView(LoginRequiredMixin, ListView):

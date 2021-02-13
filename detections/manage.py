@@ -16,6 +16,7 @@ from sugar.savefiles import SaveFile,SaveDetection
 import random
 
 def ManageDetections(self, request, *args, **kwargs):
+    print("======== Ya esta 2 ==========")
     """Manage detections."""
     self.object = self.get_object()
     context = self.get_context_data()
@@ -57,8 +58,8 @@ def ManageDetections(self, request, *args, **kwargs):
         new_note = Note(note_detection=detection, name=name, user=user, text=text)
         new_note.save()
 
-    return render(request, 'detections/detail.html', context)
-
+    #return render(request, 'detections/detail.html', context)
+    return HttpResponse(render(request,'detections/_detail_vis.html',context))
 
 def ManageNewDetection(self, request, *args, **kwargs):
     """Manage new detection."""

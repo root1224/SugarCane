@@ -13,6 +13,7 @@ urlpatterns = [
         view=views.IndexView.as_view(),
         name='home'
     ),
+
     path(
         route='new-detection/',
         view=views.NewDetectionView.as_view(),
@@ -43,4 +44,5 @@ urlpatterns = [
         view=views.NoteEditView.as_view(),
         name='edit_note'
     ),
+
 ]

@@ -101,7 +101,29 @@ window.onload = function () {
     //alert(  e.dataSeries.type + ", dataPoint { x:" + e.dataPoint.x + ", y: "+ e.dataPoint.y + " }" );
   }
 }
+
+
+  $(document).on('submit','#post-form', function(e){
+    e.preventDefault();
+
+    $.ajax({
+      type:'POST',
+      url:'',
+      data:{
+        fromdate:$('#fromdate').val(),
+        todate:$('#todate').val(),
+        csrfmiddlewaretoken : $('input[name=csrfmiddlewaretoken]').val(),
+      },
+
+      success: function(data){
+          $('#table_section').html(data);
+      }
+    })
+  })
+
+
 </script>
+
 
 
 
@@ -122,7 +144,7 @@ window.onload = function () {
                   <h6 class="text-uppercase text-light ls-1 mb-1">Detections</h6>
                   <h2 class="text-white mb-0">Water stress</h2>
                   </div>
-                <div class="col">
+                  <div class="col">
 
                 </div>
               </div>
@@ -142,16 +164,27 @@ window.onload = function () {
       <div class="row mt-5 animate-bottom">
         <div class="col">
           <div class="card bg-default shadow" style="height:500px;overflow:auto;">
-
-              <!-- Table all detections -->
+            <!-- Table all detections -->
+            <form id="post-form">
+              {% csrf_token %}
+              <div class="card-header bg-transparent border-0">
+                <div class="row">
+                  <div class="col-7">
+                    <h3 class="text-white mb-0">Detections</h3>
+                  </div>
+                  <div class="col">
+                    <div class="row">
+                      From: <input type="date" id="fromdate" name="fromdate" value="None" class="form-control form-control-alternative" style="width:112px; height:35px; padding: 0.0rem 0.0rem;">&nbsp;&nbsp;
+                      To: <input type="date" id="todate" name="todate" value="None" class="form-control form-control-alternative" style="width:112px; height:35px; padding: 0.0rem 0.0rem;">&nbsp;&nbsp;
+                      <input type="submit" name="search" class="btn btn-sm btn-primary btn-block" style="width:70px;">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <h2></h2>
+            <div id="table_section" class="table_section">
               {% include "detections/tables/all.html" %}
-
-              <div class="card-footer py-4 bg-default shadow">
-              <nav aria-label="...">
-              <!--  {% if page_obj.has_other_pages %}
-                  {% include "includes/pagination.html" %}
-                {% endif%}-->
-              </nav>
             </div>
           </div>
         </div>
@@ -164,5 +197,9 @@ window.onload = function () {
 {% endblock content %}
 
 <!-- Specific JS goes HERE -->
+
 {% block javascripts %}
+
+
+
 {% endblock javascripts %}
