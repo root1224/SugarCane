@@ -19,11 +19,14 @@
 
     <!-- NDVI image -->
     {% if done_clouster == 'ndvi' %}
-    <div class="tab-pane fade show active" id="ndvi" role="tabpanel" aria-labelledby="ndvi-tab">
-    <img height="468px" alt="{{ detection.name }}" src="{{MEDIA_URL}}/temp/clouster/{{request.user.username}}/clouster_done.jpg">
+      <div class="tab-pane fade show active" id="ndvi" role="tabpanel" aria-labelledby="ndvi-tab">
+      <img height="468px" alt="{{ detection.name }}" src="{{MEDIA_URL}}/temp/clouster/{{request.user.username}}/clouster_done.jpg">
+    {% elif done_clouster == 'n_ndvi' %}
+      <div class="tab-pane fade show active" id="ndvi" role="tabpanel" aria-labelledby="ndvi-tab">
+      <img height="468px" alt="{{ detection.name }}" src="{{ detection.picture_ndvi.url }}">
     {% else %}
-    <div class="tab-pane fade" id="ndvi" role="tabpanel" aria-labelledby="ndvi-tab">
-    <img height="468px" alt="{{ detection.name }}" src="{{ detection.picture_ndvi.url }}">
+      <div class="tab-pane fade" id="ndvi" role="tabpanel" aria-labelledby="ndvi-tab">
+      <img height="468px" alt="{{ detection.name }}" src="{{ detection.picture_ndvi.url }}">
     {% endif %}
       <div class="space bg-gradient-default"></div>
 
@@ -39,6 +42,9 @@
     {% if done_clouster == 'savi' %}
       <div class="tab-pane fade show active" id="savi" role="tabpanel" aria-labelledby="savi-tab">
       <img height="468px" alt="{{ detection.name }}" src="{{MEDIA_URL}}/temp/clouster/{{request.user.username}}/clouster_done.jpg">
+    {% elif done_clouster == 'n_savi' %}
+      <div class="tab-pane fade show active" id="savi" role="tabpanel" aria-labelledby="savi-tab">
+      <img height="468px" alt="{{ detection.name }}" src="{{ detection.picture_savi.url }}">
     {% else %}
       <div class="tab-pane fade" id="savi" role="tabpanel" aria-labelledby="savi-tab">
       <img height="468px" alt="{{ detection.name }}" src="{{ detection.picture_savi.url }}">
@@ -57,6 +63,9 @@
     {% if done_clouster == 'evi2' %}
       <div class="tab-pane fade show active" id="evi2" role="tabpanel" aria-labelledby="evi2-tab">
       <img height="468px" alt="{{ detection.name }}" src="{{MEDIA_URL}}/temp/clouster/{{request.user.username}}/clouster_done.jpg">
+    {% elif done_clouster == 'n_evi2' %}
+      <div class="tab-pane fade show active" id="evi2" role="tabpanel" aria-labelledby="evi2-tab">
+        <img height="468px" alt="{{ detection.name }}" src="{{ detection.picture_evi2.url }}">
     {% else %}
       <div class="tab-pane fade" id="evi2" role="tabpanel" aria-labelledby="evi2-tab">
       <img height="468px" alt="{{ detection.name }}" src="{{ detection.picture_evi2.url }}">

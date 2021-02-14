@@ -16,7 +16,6 @@ from sugar.savefiles import SaveFile,SaveDetection
 import random
 
 def ManageDetections(self, request, *args, **kwargs):
-    print("======== Ya esta 2 ==========")
     """Manage detections."""
     self.object = self.get_object()
     context = self.get_context_data()
@@ -29,6 +28,8 @@ def ManageDetections(self, request, *args, **kwargs):
 
             MakeCloustering(request.user,int(number),picture_url)
             context['done_clouster'] = type_vi
+        else:
+            context['done_clouster'] = 'n_ndvi'
 
     elif 'cloustering_savi' in request.POST:
         detection = self.get_object()
@@ -39,6 +40,8 @@ def ManageDetections(self, request, *args, **kwargs):
 
             MakeCloustering(request.user,int(number),picture_url)
             context['done_clouster'] = type_vi
+        else:
+            context['done_clouster'] = 'n_savi'
 
     elif 'cloustering_evi2' in request.POST:
         detection = self.get_object()
@@ -49,6 +52,8 @@ def ManageDetections(self, request, *args, **kwargs):
 
             MakeCloustering(request.user,int(number),picture_url)
             context['done_clouster'] = type_vi
+        else:
+            context['done_clouster'] = 'n_evi2'
 
     elif 'savenote' in request.POST:
         user = request.user
@@ -58,8 +63,8 @@ def ManageDetections(self, request, *args, **kwargs):
         new_note = Note(note_detection=detection, name=name, user=user, text=text)
         new_note.save()
 
-    #return render(request, 'detections/detail.html', context)
-    return HttpResponse(render(request,'detections/_detail_vis.html',context))
+    return render(request, 'detections/detail.html', context)
+    #return HttpResponse(render(request,'detections/_detail_vis.html',context))
 
 def ManageNewDetection(self, request, *args, **kwargs):
     """Manage new detection."""
