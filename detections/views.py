@@ -52,6 +52,7 @@ class IndexView(LoginRequiredMixin, ListView):
         context['detections_name'] = detections_m_name
         context['detections_date'] = detections_m_date
         context['detections'] = Detection.objects.all().order_by('-created')
+        context['segment'] = 'home'
         return context
 
     def post(self, request, *args, **kwargs):
@@ -69,31 +70,6 @@ class IndexView(LoginRequiredMixin, ListView):
             return HttpResponse(render(request,'detections/tables/all.html',context))
 
 
-def search(request):
-    context = []
-    if request.method == 'POST':
-        fromdate = request.POST['fromdate']
-        todate = request.POST['todate']
-        date_object =  datetime.strptime(todate, "%Y-%m-%d")
-        date_object += timedelta(days=1)
-        todate = date_object.strftime("%Y-%m-%d")
-        detection_instances = Detection.objects.filter(created__range=[fromdate, todate]).order_by('-created')
-        context['detections'] = detection_instances
-        print("============ YA ESTA =============")
-        #return render(request,'detections/index.html',context)
-        #return HttpResponse(render(request,'detections/tables/all.html',context))
-        return HttpResponse('======= YA ESTA =======')
-
-
-
-class AllDetectionsView(LoginRequiredMixin, ListView):
-    """Return detections."""
-    template_name = 'detections/all.html'
-    model = Detection
-    ordering = ('-created',)
-    #paginate_by = 5
-    context_object_name = 'detections'
-
 class NewDetectionView(LoginRequiredMixin, TemplateView):
     """New detection view."""
     template_name = "detections/new.html"
@@ -103,6 +79,7 @@ class NewDetectionView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
         context['profile'] = self.request.user.profile
+        context['segment'] = 'new'
         return context
 
     def post(self, request, *args, **kwargs):
@@ -195,4 +172,5 @@ class LastDetectionView(LoginRequiredMixin, DetailView):
         detection = self.get_object()
         context['notes'] = Note.objects.filter(note_detection=detection).order_by('-created')
         context['detections'] = Detection.objects.all().order_by('-created')
+        context['segment'] = 'last'
         return context

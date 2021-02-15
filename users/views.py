@@ -36,6 +36,7 @@ class ProfileDetailView(LoginRequiredMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         user = self.get_object()
         context['profile'] = Profile.objects.get(user=user)
+        context['segment'] = 'profile'
         return context
 
     def get_success_url(self, *args, **kwargs):
