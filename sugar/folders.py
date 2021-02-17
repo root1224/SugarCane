@@ -8,7 +8,7 @@ from PIL import Image
 import cv2
 
 
-def ifExist(path_file, request_file, rotate=None):
+def ifExist(path_file, request_file, mosaic=None):
     """Check if exists a folder."""
     # https://docs.djangoproject.com/en/3.1/ref/files/storage/
     fs = FileSystemStorage()
@@ -20,10 +20,11 @@ def ifExist(path_file, request_file, rotate=None):
     # the fileurl variable now contains the url to the file. This can be used to serve the file when needed.
     # fileurl = fs.url(file)
 
-    if 'RGB_temp.JPG' in path_file:
-        img = Image.open(path_file)
-        img = img.rotate(180) # 90, -90, 180, ...
-        img.save(path_file) # to override your old file
+    if not mosaic is None and mosaic is False:
+        if 'RGB_temp.JPG' in path_file:
+            img = Image.open(path_file)
+            img = img.rotate(180) # 90, -90, 180, ...
+            img.save(path_file) # to override your old file
 
 
 def ifFolder(path):

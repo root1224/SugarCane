@@ -75,12 +75,13 @@ def SaveFile(request_file, user):
     path_folder = path + '/media/temp/bands/' + str(user) + '/'
     path_file =  path_folder + name
 
-    ifFolder(path_folder)
-    ifExist(path_file=path_file, request_file=request_file,)
-
     mosaic = False
     if 'Orthomosaic' in request_file.name:
         mosaic = True
+
+    ifFolder(path_folder)
+    ifExist(path_file=path_file, request_file=request_file, mosaic=mosaic)
+
 
     return mosaic
 

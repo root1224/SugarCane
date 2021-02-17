@@ -71,7 +71,7 @@ def ManageNewDetection(self, request, *args, **kwargs):
     if 'detect' in request.POST:
         files_detection = request.FILES.getlist('files')
         if files_detection:
-            if len(files_detection) == 5:
+            if len(files_detection) == 4:
                 extention = []
                 if not any("RGB" in s.name for s in files_detection):
                     extention.append("RGB")
@@ -79,8 +79,8 @@ def ManageNewDetection(self, request, *args, **kwargs):
                     extention.append("NIR")
                 if not any("RED" in s.name for s in files_detection):
                     extention.append("RED")
-                if not any("REG" in s.name for s in files_detection):
-                    extention.append("REG")
+                #if not any("REG" in s.name for s in files_detection):
+                #    extention.append("REG")
                 if not any("GRE" in s.name for s in files_detection):
                     extention.append("GRE")
 
