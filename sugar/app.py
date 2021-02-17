@@ -15,7 +15,7 @@ from .Otsu import CalculateOtsu, PutMask
 from .procesar import ProyectividadOpenCV
 
 
-def CalculateVi(user):
+def CalculateVi(user, mosaic):
     """Calculate VIs."""
     # Paths
     path = os.getcwd()
@@ -38,9 +38,13 @@ def CalculateVi(user):
     path_without = path_resul + 'WITHOUT.jpg'
 
     # Bands
-    suga_procesar = ProyectividadOpenCV()
+    sugar_procesar = ProyectividadOpenCV()
     "Se envían las URL y se obtienen los índices NDVI y una imagen adecuada para visualizar"
-    vis = suga_procesar.vis_calculation(red_path, nir_path,width=1280, height=960)
+    if mosaic is False:
+        vis = sugar_procesar.vis_calculation(red_path, nir_path,width=1280, height=960)
+    else:
+        vis = sugar_procesar.vis_calculation_orthomosaic(red_path, nir_path,width=1280, height=960)
+
     ndvi = vis['ndvi'][0]
     savi = vis['savi'][0]
     evi2 = vis['evi2'][0]
@@ -76,7 +80,7 @@ def CalculateVi(user):
     )
 
     state,water_stress_percent,water_stress = Reflectance(th2,green_path)
-    
+
     return state,water_stress_percent,water_stress
 
 

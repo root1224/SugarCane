@@ -38,7 +38,8 @@ class IndexView(LoginRequiredMixin, ListView):
         #https://canvasjs.com/javascript-range-area-spline-area-chart/
         context = super().get_context_data(**kwargs)
         last_month = datetime.now() - timedelta(days=14)
-        detections_month = Detection.objects.filter(created__gte=last_month).order_by('created')
+        #detections_month = Detection.objects.filter(created__gte=last_month).order_by('created')
+        detections_month = Detection.objects.all().order_by('created')
         detections_m = ""
         detections_m_name = ""
         detections_m_date = ""

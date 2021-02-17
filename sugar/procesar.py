@@ -189,3 +189,68 @@ class ProyectividadOpenCV():
           }
 
         return vis
+
+        # --------------------------
+    def vis_calculation_orthomosaic(self, url_img_RED="ejemplos/example_2/img_RED.TIF",
+                         url_img_NIR="ejemplos/example_2/img_NIR.TIF", width=725, height=1081, L=0.5):
+        "En esta clase se calcula el índice NDVI a partir de un par de imágenes entregadas en el argumento"
+
+        "Se leen las imágenes"
+        img_RED = rasterio.open(url_img_RED).read(1)
+        img_NIR = rasterio.open(url_img_NIR).read(1)
+
+
+        img_RED = cv2.resize(img_RED, (width, height), interpolation=cv2.INTER_LINEAR)
+        img_NIR = cv2.resize(img_NIR, (width, height), interpolation=cv2.INTER_LINEAR)
+
+        "Se alinean as imágenes y se utiliza la imagen roja como imagen base"
+
+        #stb_RED = self.estabilizador_imagen(img_RED, img_NIR)
+
+        "Se convierten las imágenes en arreglos trabajables con numpy y matplotlib"
+        red = np.array(img_RED, dtype=float)
+        nir = np.array(img_NIR, dtype=float)
+
+        "Se verifican y corrigen las divisiones por cero"
+        check = np.logical_and(red > 1, nir > 1)
+
+        "Se calcula el índice ndvi"
+        ndvi = np.where(check, (nir - red) / (nir + red), 0)
+        ndvi_index = ndvi
+
+        "Se calcula el índice savi"
+        savi = np.where(check, ((nir - red) / (nir + red + L) * (1+L) ), 0)
+        savi_index = savi
+
+        "Se calcula el índice evi2"
+        evi2 = np.where(check, 2.5*(nir - red) / (nir + 2.4 * red + 1), 0)
+        evi2_index = evi2
+
+        "Se verifica que todos los valores queden sobre cero de NDVI"
+        if ndvi.min() < 0:
+            ndvi = ndvi + (ndvi.min() * -1)
+        ndvi = (ndvi * 255) / ndvi.max()
+        ndvi = ndvi.round()
+        ndvi_image = np.array(ndvi, dtype=np.uint8)
+
+        "Se verifica que todos los valores queden sobre cero de SAVI"
+        if savi.min() < 0:
+            savi = savi + (savi.min() * -1)
+        savi = (savi * 255) / savi.max()
+        savi = savi.round()
+        savi_image = np.array(savi, dtype=np.uint8)
+
+        "Se verifica que todos los valores queden sobre cero de EVI2"
+        if evi2.min() < 0:
+            evi2 = evi2 + (evi2.min() * -1)
+        evi2 = (evi2 * 255) / evi2.max()
+        evi2 = evi2.round()
+        evi2_image = np.array(evi2, dtype=np.uint8)
+
+        vis = {
+            'ndvi' : [ndvi_index, ndvi_image],
+            'savi' : [savi_index, savi_image],
+            'evi2' : [evi2_index, evi2_image]
+          }
+
+        return vis

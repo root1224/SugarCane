@@ -76,8 +76,13 @@ def SaveFile(request_file, user):
     path_file =  path_folder + name
 
     ifFolder(path_folder)
-    ifExist(path_file=path_file, request_file=request_file)
+    ifExist(path_file=path_file, request_file=request_file,)
 
+    mosaic = False
+    if 'Orthomosaic' in request_file.name:
+        mosaic = True
+
+    return mosaic
 
 def SaveDetection(request,user,profile,detection_name,status,water_stress,water_stress_percent,note_name,note_text):
     """Save detection in DB."""

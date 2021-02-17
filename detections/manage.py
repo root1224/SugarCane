@@ -86,9 +86,9 @@ def ManageNewDetection(self, request, *args, **kwargs):
 
                 if not extention:
                     for request_file in files_detection:
-                        SaveFile(request_file, request.user.username)
+                        mosaic = SaveFile(request_file, request.user.username)
 
-                    state,water_stress_percent,water_stress = CalculateVi(request.user.username)
+                    state,water_stress_percent,water_stress = CalculateVi(request.user.username, mosaic)
 
                     context = {
                         'save_detect' : True,
