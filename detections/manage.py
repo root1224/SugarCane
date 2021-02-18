@@ -94,6 +94,7 @@ def ManageNewDetection(self, request, *args, **kwargs):
 
                     state,water_stress_percent,water_stress = CalculateVi(request.user.username, mosaic)
 
+
                     if mosaic is True:
                         mosaic_text = 'True'
                     else:

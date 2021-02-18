@@ -32,6 +32,7 @@ def CalculateVi(user, mosaic):
 
     # Vi paths
     path_ndvi = path_resul + 'NDVI.jpg'
+    path_ndvi_mask = path_resul + 'NDVI_4_mask.jpg'
     path_savi = path_resul + 'SAVI.jpg'
     path_evi2 = path_resul + 'EVI2.jpg'
     path_gray = path_resul + 'EVI2_gray.jpg'
@@ -70,6 +71,12 @@ def CalculateVi(user, mosaic):
         mosaic=mosaic
     )
 
+    SaveVI(
+        vi=ndvi,
+        vi_path=path_ndvi_mask,
+        mosaic=mosaic
+    )
+
     # Make Otsu
     mask_path,th2=CalculateOtsu(
         folder=path_resul,
@@ -78,7 +85,7 @@ def CalculateVi(user, mosaic):
 
     PutMask(
         mask=mask_path,
-        image=path_evi2,
+        image=path_ndvi,
         mask_otsu=th2,
         path_save=path_without,
     )

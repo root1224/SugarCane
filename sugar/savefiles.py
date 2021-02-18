@@ -30,7 +30,7 @@ def semaforo(vmin,vmax,cmap,N):
 def SaveVI(vi, N=None, color_map='RdYlGn', vi_path=None, mosaic=False):
     """Save or plot vegetation index image."""
     ifExist(path_file=vi_path,request_file=None)
-
+    vmin, vmax = np.nanpercentile(vi, (1,99))
     # Inicializar la figura
     if N is None:
         fig = plt.figure()
@@ -39,7 +39,11 @@ def SaveVI(vi, N=None, color_map='RdYlGn', vi_path=None, mosaic=False):
             plt.figure(figsize=(9,25), dpi=100)
         else:
             plt.figure(figsize=(16.92,12.72), dpi=100)
-        plt.imshow(vi, cmap=color_map, vmin=np.min(vi), vmax=np.max(vi))
+
+        if 'NDVI_4_mask.jpg' in vi_path:
+            plt.imshow(vi, cmap=color_map, vmin=vmin, vmax=vmax)
+        else:
+            plt.imshow(vi, cmap=color_map, vmin=np.min(vi), vmax=np.max(vi))
         plt.axis("off")
         plt.savefig(vi_path, bbox_inches='tight', pad_inches=0)
 
