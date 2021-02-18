@@ -23,6 +23,11 @@
                   <h6 class="text-uppercase text-light ls-1 mb-1">Detection Photo</h6>
                   <h2 class="text-white mb-0">{{ detection.name }}</h2>
                 </div>
+                <div class="col-3">
+                  {% if msg %}
+                    <label for="Message Error" style="color:red">{{msg}}</label>
+                  {% endif %}
+                </div>
 
                 <!-- Menu vertical -->
                 <!-- https://getbootstrap.com/docs/4.0/components/navs/ -->
@@ -55,7 +60,7 @@
           </div>
         </div>
         <div class="col-xl-4">
-          <div class="card bg-default shadow">
+          <div class="card bg-default shadow" style="height:500px;overflow:auto;">
 
             <!-- Table all detections -->
             {% include "detections/tables/all_resume.html" %}

@@ -27,7 +27,7 @@ def semaforo(vmin,vmax,cmap,N):
   return sm
 
 
-def SaveVI(vi, N=None, color_map='RdYlGn', vi_path=None):
+def SaveVI(vi, N=None, color_map='RdYlGn', vi_path=None, mosaic=False):
     """Save or plot vegetation index image."""
     ifExist(path_file=vi_path,request_file=None)
 
@@ -35,7 +35,10 @@ def SaveVI(vi, N=None, color_map='RdYlGn', vi_path=None):
     if N is None:
         fig = plt.figure()
         # Guardar imagen simple de indice de vegetacion a escala de grises
-        plt.figure(figsize=(16.92,12.72), dpi=100)
+        if mosaic is True:
+            plt.figure(figsize=(9,25), dpi=100)
+        else:
+            plt.figure(figsize=(16.92,12.72), dpi=100)
         plt.imshow(vi, cmap=color_map, vmin=np.min(vi), vmax=np.max(vi))
         plt.axis("off")
         plt.savefig(vi_path, bbox_inches='tight', pad_inches=0)
@@ -58,8 +61,15 @@ def SaveVI(vi, N=None, color_map='RdYlGn', vi_path=None):
 
 def SaveFile(request_file, user):
     """Save bands images in temp file."""
+    mosaic = False
+    if 'Orthomosaic' in request_file.name:
+        mosaic = True
+
     if 'RGB' in request_file.name:
-        name = 'RGB_temp.JPG'
+        if mosaic is True:
+            name = 'RGB_temp.TIF'
+        else:
+            name = 'RGB_temp.JPG'
     elif 'NIR' in request_file.name:
         name = 'NIR_temp.TIF'
     elif 'RED' in request_file.name:
@@ -75,9 +85,6 @@ def SaveFile(request_file, user):
     path_folder = path + '/media/temp/bands/' + str(user) + '/'
     path_file =  path_folder + name
 
-    mosaic = False
-    if 'Orthomosaic' in request_file.name:
-        mosaic = True
 
     ifFolder(path_folder)
     ifExist(path_file=path_file, request_file=request_file, mosaic=mosaic)
@@ -85,13 +92,16 @@ def SaveFile(request_file, user):
 
     return mosaic
 
-def SaveDetection(request,user,profile,detection_name,status,water_stress,water_stress_percent,note_name,note_text):
+def SaveDetection(request,user,profile,detection_name,status,water_stress,water_stress_percent,note_name,note_text,mosaic):
     """Save detection in DB."""
     #https://stackoverflow.com/questions/35581356/save-matplotlib-plot-image-into-django-model/35633462
     #https://stackoverflow.com/questions/3723220/how-do-you-convert-a-pil-image-to-a-django-file
 
     # Paths
-    path_picture = 'media/temp/bands/'+str(request.user.username)+'/RGB_temp.JPG'
+    if mosaic is True:
+        path_picture = 'media/temp/bands/'+str(request.user.username)+'/RGB_temp.JPG'
+    else:
+        path_picture = 'media/temp/bands/'+str(request.user.username)+'/RGB_temp.JPG'
     path_picture_ndvi ='media/temp/results/'+str(request.user.username)+'/NDVI.jpg'
     path_picture_savi ='media/temp/results/'+str(request.user.username)+'/SAVI.jpg'
     path_picture_evi2 ='media/temp/results/'+str(request.user.username)+'/EVI2.jpg'

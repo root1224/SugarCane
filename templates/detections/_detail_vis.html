@@ -9,30 +9,30 @@
     {% else %}
     <div class="tab-pane fade show active" id="rgb" role="tabpanel" aria-labelledby="rgb-tab">
     {% endif %}
-      <img height="468px" alt="{{ detection.name }}" src="{{ detection.picture.url }}">
+      <img alt="{{ detection.name }}" src="{{ detection.picture.url }}" style="max-width: 100%; max-height: 100%;">
     </div>
 
     <!-- Without image -->
     <div class="tab-pane fade" id="without" role="tabpanel" aria-labelledby="without-tab">
-      <img height="468px" alt="{{ detection.name }}" src="{{ detection.picture_without.url }}">
+      <img  alt="{{ detection.name }}" src="{{ detection.picture_without.url }}" style="max-width: 100%; max-height: 100%;">
     </div>
 
     <!-- NDVI image -->
     {% if done_clouster == 'ndvi' %}
       <div class="tab-pane fade show active" id="ndvi" role="tabpanel" aria-labelledby="ndvi-tab">
-      <img height="468px" alt="{{ detection.name }}" src="{{MEDIA_URL}}/temp/clouster/{{request.user.username}}/clouster_done.jpg">
+      <img  alt="{{ detection.name }}" src="{{MEDIA_URL}}/temp/clouster/{{request.user.username}}/clouster_done.jpg" style="max-width: 100%; max-height: 100%;">
     {% elif done_clouster == 'n_ndvi' %}
       <div class="tab-pane fade show active" id="ndvi" role="tabpanel" aria-labelledby="ndvi-tab">
-      <img height="468px" alt="{{ detection.name }}" src="{{ detection.picture_ndvi.url }}">
+      <img alt="{{ detection.name }}" src="{{ detection.picture_ndvi.url }}" style="max-width: 100%; max-height: 100%;">
     {% else %}
       <div class="tab-pane fade" id="ndvi" role="tabpanel" aria-labelledby="ndvi-tab">
-      <img height="468px" alt="{{ detection.name }}" src="{{ detection.picture_ndvi.url }}">
+      <img alt="{{ detection.name }}" src="{{ detection.picture_ndvi.url }}" style="max-width: 100%; max-height: 100%;">
     {% endif %}
       <div class="space bg-gradient-default"></div>
 
       <div class="row bg-gradient-default align-items-center">
           <div class="col">
-            <label for="quantity" style="color:white">Cloustering Number NDVI:</label>
+            <label for="quantity" style="color:white">Clustering Number NDVI:</label>
             <input type="number" style="width: 6em;" id="n_clouster_ndvi" name="n_clouster_ndvi" value="0" min="0" max="10" >
             <button type="submit" style="width: 6em;" onclick="openLoad()" name="cloustering_ndvi" class="btn btn-sm btn-secondary ">Done</button>
           </div>
@@ -41,19 +41,19 @@
     <!-- SAVI image -->
     {% if done_clouster == 'savi' %}
       <div class="tab-pane fade show active" id="savi" role="tabpanel" aria-labelledby="savi-tab">
-      <img height="468px" alt="{{ detection.name }}" src="{{MEDIA_URL}}/temp/clouster/{{request.user.username}}/clouster_done.jpg">
+      <img  alt="{{ detection.name }}" src="{{MEDIA_URL}}/temp/clouster/{{request.user.username}}/clouster_done.jpg" style="max-width: 100%; max-height: 100%;">
     {% elif done_clouster == 'n_savi' %}
       <div class="tab-pane fade show active" id="savi" role="tabpanel" aria-labelledby="savi-tab">
-      <img height="468px" alt="{{ detection.name }}" src="{{ detection.picture_savi.url }}">
+      <img  alt="{{ detection.name }}" src="{{ detection.picture_savi.url }}" style="max-width: 100%; max-height: 100%;">
     {% else %}
       <div class="tab-pane fade" id="savi" role="tabpanel" aria-labelledby="savi-tab">
-      <img height="468px" alt="{{ detection.name }}" src="{{ detection.picture_savi.url }}">
+      <img  alt="{{ detection.name }}" src="{{ detection.picture_savi.url }}" style="max-width: 100%; max-height: 100%;">
     {% endif %}
       <div class="space bg-gradient-default"></div>
 
       <div class="row bg-gradient-default align-items-center">
           <div class="col">
-            <label for="quantity" style="color:white">Cloustering Number SAVI:</label>
+            <label for="quantity" style="color:white">Clustering Number SAVI:</label>
             <input type="number" style="width: 6em;" id="n_clouster_savi" name="n_clouster_savi" value="0" min="0" max="10" >
             <button type="submit" style="width: 6em;" onclick="openLoad()" name="cloustering_savi" class="btn btn-sm btn-secondary ">Done</button>
           </div>
@@ -62,19 +62,19 @@
     <!-- EVI2 image -->
     {% if done_clouster == 'evi2' %}
       <div class="tab-pane fade show active" id="evi2" role="tabpanel" aria-labelledby="evi2-tab">
-      <img height="468px" alt="{{ detection.name }}" src="{{MEDIA_URL}}/temp/clouster/{{request.user.username}}/clouster_done.jpg">
+      <img  alt="{{ detection.name }}" src="{{MEDIA_URL}}/temp/clouster/{{request.user.username}}/clouster_done.jpg" style="max-width: 100%; max-height: 100%;">
     {% elif done_clouster == 'n_evi2' %}
       <div class="tab-pane fade show active" id="evi2" role="tabpanel" aria-labelledby="evi2-tab">
-        <img height="468px" alt="{{ detection.name }}" src="{{ detection.picture_evi2.url }}">
+        <img  alt="{{ detection.name }}" src="{{ detection.picture_evi2.url }}" style="max-width: 100%; max-height: 100%;">
     {% else %}
       <div class="tab-pane fade" id="evi2" role="tabpanel" aria-labelledby="evi2-tab">
-      <img height="468px" alt="{{ detection.name }}" src="{{ detection.picture_evi2.url }}">
+      <img  alt="{{ detection.name }}" src="{{ detection.picture_evi2.url }}" style="max-width: 100%; max-height: 100%;">
     {% endif %}
       <div class="space bg-gradient-default"></div>
 
       <div class="row bg-gradient-default align-items-center">
           <div class="col">
-            <label for="quantity" style="color:white">Cloustering Number EVI2:</label>
+            <label for="quantity" style="color:white">Clustering Number EVI2:</label>
             <input type="number" style="width: 6em;" id="n_clouster_evi2" name="n_clouster_evi2" value="0" min="0" max="10" >
             <button type="submit" style="width: 6em;" onclick="openLoad()" name="cloustering_evi2" class="btn btn-sm btn-secondary ">Done</button>
           </div>

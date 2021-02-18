@@ -20,8 +20,13 @@ def ifExist(path_file, request_file, mosaic=None):
     # the fileurl variable now contains the url to the file. This can be used to serve the file when needed.
     # fileurl = fs.url(file)
 
-    if not mosaic is None and mosaic is False:
-        if 'RGB_temp.JPG' in path_file:
+    if not mosaic is None:
+        if mosaic is True and 'RGB_temp.TIF' in path_file:
+            outfile = path_file[:-3] + "JPG"
+            ima = Image.open(path_file)
+            ima.convert("RGB").save(outfile, "JPEG", quality=100)
+
+        elif mosaic is False and 'RGB_temp.JPG' in path_file:
             img = Image.open(path_file)
             img = img.rotate(180) # 90, -90, 180, ...
             img.save(path_file) # to override your old file

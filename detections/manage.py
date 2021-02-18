@@ -19,6 +19,10 @@ def ManageDetections(self, request, *args, **kwargs):
     """Manage detections."""
     self.object = self.get_object()
     context = self.get_context_data()
+    if int(request.POST['n_clouster_ndvi']) == 1:
+        context['msg'] = 'Cluster no permitido, seleccione mas de un cluster'
+        return render(request, 'detections/detail.html', context)
+
     if 'cloustering_ndvi' in request.POST:
         detection = self.get_object()
         if int(request.POST['n_clouster_ndvi']) != 0:
@@ -90,11 +94,16 @@ def ManageNewDetection(self, request, *args, **kwargs):
 
                     state,water_stress_percent,water_stress = CalculateVi(request.user.username, mosaic)
 
+                    if mosaic is True:
+                        mosaic_text = 'True'
+                    else:
+                        mosaic_text = 'False'
                     context = {
                         'save_detect' : True,
                         'state' : state,
                         'percent' : water_stress_percent,
-                        'stress' : water_stress
+                        'stress' : water_stress,
+                        'mosaic' : mosaic_text
                         }
                 else:
                     context = { 'msg' : 'Select files: '+','.join([str(n) for n in extention]) }
@@ -115,6 +124,12 @@ def ManageNewDetection(self, request, *args, **kwargs):
         status = request.POST["satatus_of_field"]
         water_stress_percent = request.POST["percent_stress"]
         water_stress = request.POST["water_stress"]
+        mosaic_text = request.POST["mosaic"]
+
+        if mosaic_text == 'True':
+            mosaic = True
+        else:
+            mosaic  = False
 
         if request.POST['note_name'] and request.POST['note_text']:
             note_name = request.POST['note_name']
@@ -128,7 +143,8 @@ def ManageNewDetection(self, request, *args, **kwargs):
                 water_stress=water_stress,
                 water_stress_percent=water_stress_percent,
                 note_name=note_name,
-                note_text=note_text
+                note_text=note_text,
+                mosaic=mosaic,
             )
         else:
             SaveDetection(
@@ -140,7 +156,8 @@ def ManageNewDetection(self, request, *args, **kwargs):
                 water_stress=water_stress,
                 water_stress_percent=water_stress_percent,
                 note_name=None,
-                note_text=None
+                note_text=None,
+                mosaic=mosaic,
             )
         return redirect('detections:last_detection')
 

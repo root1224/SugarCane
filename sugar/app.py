@@ -43,7 +43,9 @@ def CalculateVi(user, mosaic):
     if mosaic is False:
         vis = sugar_procesar.vis_calculation(red_path, nir_path,width=1280, height=960)
     else:
-        vis = sugar_procesar.vis_calculation_orthomosaic(red_path, nir_path,width=1280, height=960)
+        rgb = rasterio.open(rgb_path).read(1)
+        height,width = rgb.shape
+        vis = sugar_procesar.vis_calculation_orthomosaic(red_path, nir_path,width=width, height=height)
 
     ndvi = vis['ndvi'][0]
     savi = vis['savi'][0]
@@ -56,14 +58,16 @@ def CalculateVi(user, mosaic):
     for vi,path in zip(vis,path_vis):
         SaveVI(
             vi=vi,
-            vi_path=path
+            vi_path=path,
+            mosaic=mosaic
         )
 
     # Save gray Vi
     SaveVI(
         vi=evi2,
         color_map='gray',
-        vi_path=path_gray
+        vi_path=path_gray,
+        mosaic=mosaic
     )
 
     # Make Otsu
@@ -78,6 +82,8 @@ def CalculateVi(user, mosaic):
         mask_otsu=th2,
         path_save=path_without,
     )
+
+
 
     state,water_stress_percent,water_stress = Reflectance(th2,green_path)
 
