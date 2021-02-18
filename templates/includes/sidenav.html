@@ -38,11 +38,13 @@
           <a class=" nav-link  {% if 'home' in segment %} active {% endif %}" href="{% url "detections:home" %}"> <i class="fa fa-home text-primary"></i> All detections
             </a>
           </li>
+          {% if request.user.profile.is_expert is True %}
           <li class="nav-item">
             <a class="nav-link  {% if 'new' in segment %} active {% endif %}" href="{% url "detections:new_detection" %}">
               <i class="fa fa-plus-square text-info"></i> New detection
             </a>
           </li>
+          {% endif %}
           <li class="nav-item">
             <a class="nav-link {% if 'last' in segment %} active {% endif %}" href="{% url "detections:last_detection" %}">
               <i class="fa fa-history text-orange"></i> Last detection
