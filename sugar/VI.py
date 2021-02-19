@@ -53,7 +53,7 @@ def Reflectance(mask,green):
     img = cv2.imread(green,0)
     img = cv2.resize(img, (height, width), interpolation=cv2.INTER_LINEAR)
     norm_img = np.zeros((img.shape))
-    final_img = cv2.normalize(img,  norm_img, 0, 50, cv2.NORM_MINMAX)
+    final_img = cv2.normalize(img,  norm_img, 0, 45, cv2.NORM_MINMAX)
 
     refl = 0
     cnt = 0
@@ -63,13 +63,17 @@ def Reflectance(mask,green):
           refl += final_img[x][y]
           cnt += 1
 
-    water_stress = round(((refl/cnt)-1),2)
+
+    water_stress = round(((refl/cnt)),2)
     if water_stress <= 10:
         water_stress_percent = 77.7
     else:
         water_stress_percent = round(((water_stress*92.3)/15),1)
 
-    if water_stress_percent == 92.3:
+    if water_stress_percent >= 99:
+        water_stress_percent = 96.0
+
+    if water_stress_percent >= 92.3:
         state = 'good'
     elif water_stress_percent <= 80:
         state = 'danger'
